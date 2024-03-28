@@ -31,3 +31,23 @@ body {
     text-wrap: balance;
   }
 } */
+
+body{
+  background-color: black;
+}
+.scroll-container {
+  overflow-y: scroll; /* Enable vertical scrollbar */
+  scrollbar-width: thin; /* Set the width of the scrollbar */
+  scrollbar-color: transparent transparent; /* Set the color of the scrollbar track and thumb */
+}
+
+/* Hide scrollbar track and thumb */
+.scroll-container::-webkit-scrollbar {
+  width: 0; /* Hide scrollbar on WebKit browsers */
+}
+
+.scroll-content {
+  /* Ensure content doesn't overflow horizontally */
+  white-space: nowrap;
+}
+

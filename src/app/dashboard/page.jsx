@@ -1,37 +1,63 @@
-import React from 'react'
-import imagebg from "../../../public/backgroundImage.jpg"
-import img1 from "../../../public/img1.jpg"
+'use client'
+import React, { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import imagebg from "../../../public/backgroundImage.jpg";
+import img1 from "../../../public/img1.jpg";
+import Modal from '@/components/modal';
+
+
 function Dashboard() {
-  return (
-    <div className='relative h-screen'>
-        <Image src={imagebg} alt="background"  className='absolute inset-0 w-full h-full object-cover'/>
-        {/* <div className='absolute inset-0 bg-black items-center j w-1/3'>
-            <h1>the title</h1>
-        </div> */}
-        <div className='absolute inset-0 grid items-center sm:grid-cols-3 grid-rows-3 gap-3 h-screen '>
-            {/* <h1 className='text-4xl text-white font-bold'>this is how its going</h1>
-             */}
-             
-             <div className='  relative h-full w-1/2 hover:cursor-pointer hover:opacity-45 '>
-                <Image src={img1} className='absolute inset-0 w-full h-full object-cover' />
-                <div className='absolute top-1/2 left-1/3 inset-0 items-center justify-center text-black font-extrabold text-3xl '>BLOG</div>
-            </div>
-            <div className='relative h-full w-1/2 hover:cursor-pointer hover:opacity-45'>
-                <Image src={img1} className='absolute inset-0 w-full h-full object-cover' />
-                <div className='absolute top-1/2 left-1/3 inset-0 items-center justify-center text-black font-extrabold text-3xl'>VLOG</div>
-            </div>
-            <div className='relative h-full w-1/2 hover:cursor-pointer hover:opacity-45 overflow-hidden'>
-                <Image src={img1} className='absolute inset-0 w-full h-full object-cover' />
-                <div className='absolute top-1/2 left-1/3 inset-0 items-center justify-center text-black font-extrabold text-3xl'>CREATION</div>
-            </div>
-            
-            
-             {/* <div className='border-cyan-500 border-4 '>box 2</div>
-             <div className='border-cyan-500 border-4 '>box 3</div> */}
+  const [modalOpen , setModalOpen] = useState(false);
+
+  const handleClick =()=>{
+    console.log("open modal");
+    setModalOpen(modalOpen=>!modalOpen)
+  }
+  return (  
+       <div className='scroll-container relative min-h-screen bg-black '>
+        <div className=''>
+     <Image src={imagebg} className='fixed' />
+     <div className='flex flex-col'>
+      {/* for the title */}
+      <div className='fixed top-1/4 left-12 text-9xl font-bold font-sans tracking-wide w-[50%] shadow-black'><span className='shadow-2xl shadow-black text-'>ALL THAT LIES IN ONE PLACE</span></div>
+      <div className='absolute  top-20 right-20 justify-center items-center '>
+        {/* if modalopen is true then open the modal otherwise keep it same */}
+        {modalOpen ? (
+          <Modal/>
+         
+        ):
+        <div className='grid grid-col gap-4'>
+          
+          <div className='relative shadow-xl shadow-black rounded-3xl hover:cursor-pointer' onClick={handleClick}>
+            <Image src={img1} className='w-96 h-96 opacity-40 hover:opacity-65 rounded-3xl '/>
+            <span className='absolute left-1/3 top-1/3 text-white text-5xl font-extrabold font-serif'>BLOG</span>
+          </div>
+         
+          <Link href="/vlog">
+          <div className='relative shadow-xl shadow-black rounded-3xl hover:cursor-pointer '>
+            <Image src={img1} className='w-96 h-96 opacity-40 hover:opacity-65 rounded-3xl'/>
+            <div className='absolute left-1/3 top-1/3 text-white text-5xl font-extrabold font-serif'>VLOG</div>
+          </div>
+          </Link>
+          <Link href="/creation">
+          <div className='relative shadow-xl shadow-black rounded-3xl hover:cursor-pointer'>
+            <Image src={img1} className='w-96 h-96 opacity-40 hover:opacity-65 rounded-3xl'/>
+            <div className='absolute left-10 top-1/3 text-white text-5xl font-extrabold font-serif'>CREATION</div>
+          </div>
+          </Link>
         </div>
-    </div>
-  )
+
+    
+        }
+        
+     </div>
+     </div>
+     </div>
+     </div>
+
+  
+  );
 }
 
 export default Dashboard;

@@ -6,8 +6,9 @@ import Dashboard from '@/app/dashboard/page';
 const Modal = ({setModalOpen , ModalOpen})=>  {
 
   const handleClick = ()=>{
-    setModalOpen(prevModalOpen=>!prevModalOpen);
     console.log(setModalOpen);
+    setModalOpen(prevModalOpen=>!prevModalOpen);
+    
   }
   return (
     <div className='absolute w-full mx-auto border-2 border-black shadow-2xl '>

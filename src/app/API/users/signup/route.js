@@ -1,9 +1,14 @@
 import getConfig from 'next/config';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import {connect} from "@dbConfig/dbConfig.js"
+// import {connect} from "@dbConfig/dbConfig";
+import {connect } from "@/dbConfig/dbConfig"
+
 import { NextRequest, NextResponse } from 'next/server';
-import User from "@/app/models/UserModel.js"
+
+import User from "@/models/UserModel"
+
+connect()
 
 export async function POST(request){
     try {
@@ -16,31 +21,36 @@ export async function POST(request){
             return NextResponse.json({error:"user already exist"},{status:400} )
         }
 
-        const salt = await bcryptjs.genSalt(10);
-        const hashed = await bcryptjs.hash(password, salt);
+        // const salt = await bcrypt.genSalt(10);
+        // const hashed = await bcrypt.hash(password, salt);
         console.log(reqBody);
+        const newUser  = new User({
+            username,
+            email,
+            // password:hashed
+            password
+        })
         
+        const savedUser = await newUser.save();
+        console.log(savedUser);
+    
+        return NextResponse.json({error:"User created successfully"},{status:201});
     } catch (error) {
-        return NextResponse.json({
+        console.log("whhy this type of error");
+        return NextResponse.json({ 
             error:error.messsage
         },
         {
             status:500
         })
+
+       
     }
 
-    const newUser  = new User({
-        username,
-        email,
-        password:hashed
-    })
+   
 
-    const savedUser = await newUser.save();
-    console.log(savedUser);
-
-    return NextResponse.json({error:"User created successfully"},{status:400});
+   
 
 }
 
 
-connect()
